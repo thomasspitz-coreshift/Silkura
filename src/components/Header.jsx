@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import Logo from './Logo'
 import { Close, Menu } from './Icons'
+import { startScroll, stopScroll } from '@/lib/motion'
 import { nav } from '@/data/site'
 
 export default function Header() {
+  const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { pathname } = useLocation()
+  // Au-dessus d'une section sombre (data-header="dark") : en-tête transparent, texte nacre.
+  // L'accueil commence par l'intro sombre : état initial connu dès le pré-rendu.
+  const [onDark, setOnDark] = useState(pathname === '/')
   const toggleRef = useRef(null)
   const panelRef = useRef(null)
 
@@ -15,17 +19,39 @@ export default function Header() {
   useEffect(() => setOpen(false), [pathname])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    onScroll()
+    let frame = 0
+    const check = () => {
+      frame = 0
+      setScrolled(window.scrollY > 12)
+      const line = 34
+      setOnDark(
+        [...document.querySelectorAll('[data-header="dark"]')].some((el) => {
+          const r = el.getBoundingClientRect()
+          return r.top <= line && r.bottom >= line
+        }),
+      )
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(check)
+    }
+    check()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [pathname])
+
+  const dark = onDark && !open
 
   // Menu mobile ouvert : défilement de la page bloqué, Échap pour fermer, focus gardé dans le panneau.
   useEffect(() => {
     if (!open) return
     const previous = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    stopScroll()
     panelRef.current?.querySelector('a')?.focus()
 
     const onKey = (e) => {
@@ -49,24 +75,31 @@ export default function Header() {
     document.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = previous
+      startScroll()
       document.removeEventListener('keydown', onKey)
     }
   }, [open])
 
   const linkClass = ({ isActive }) =>
-    `relative py-2 text-[0.9375rem] transition-colors hover:text-ink ${isActive ? 'text-ink' : 'text-ink-2/80'}`
+    `relative py-2 text-[0.9375rem] transition-colors duration-500 ${
+      dark ? (isActive ? 'text-on-night' : 'text-on-night/75 hover:text-on-night') : isActive ? 'text-ink' : 'text-ink-2/80 hover:text-ink'
+    }`
 
   // Le panneau mobile est rendu à côté de l'en-tête, pas dedans : le flou (backdrop-filter) de l'en-tête
   // ferait de lui le repère des éléments « fixed » et le panneau n'aurait plus la hauteur de l'écran.
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-[background-color,box-shadow] duration-300 ${
-          scrolled || open ? 'bg-paper/92 shadow-[0_1px_0_var(--color-line)] backdrop-blur-md' : 'bg-paper'
+        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,color] duration-500 ${
+          dark
+            ? 'bg-transparent text-on-night'
+            : scrolled || open
+              ? 'bg-paper/92 text-ink shadow-[0_1px_0_var(--color-line)] backdrop-blur-md'
+              : 'bg-paper text-ink'
         }`}
       >
         <div className="wrap flex h-[68px] items-center justify-between gap-6 md:h-[76px]">
-          <Link to="/" className="text-ink" aria-label="Silkura, retour à l'accueil">
+          <Link to="/" className="transition-colors duration-500" aria-label="Silkura, retour à l'accueil">
             <Logo className="text-[1.9rem] md:text-[2.1rem]" />
           </Link>
 
@@ -80,7 +113,7 @@ export default function Header() {
                         {item.label}
                         <span
                           aria-hidden="true"
-                          className={`absolute -bottom-0.5 left-0 h-px bg-ink transition-[width] duration-300 ${isActive ? 'w-full' : 'w-0'}`}
+                          className={`absolute -bottom-0.5 left-0 h-px bg-current transition-[width] duration-300 ${isActive ? 'w-full' : 'w-0'}`}
                         />
                       </>
                     )}
@@ -91,13 +124,13 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link to="/contact" className="btn btn-primary hidden !min-h-[2.75rem] !px-5 text-sm md:inline-flex">
+            <Link to="/contact" className={`btn ${dark ? 'btn-light' : 'btn-primary'} hidden !min-h-[2.75rem] !px-5 text-sm md:inline-flex`}>
               Nous écrire
             </Link>
             <button
               ref={toggleRef}
               type="button"
-              className="-mr-2 inline-flex h-11 w-11 items-center justify-center text-ink md:hidden"
+              className="-mr-2 inline-flex h-11 w-11 items-center justify-center md:hidden"
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -108,6 +141,8 @@ export default function Header() {
           </div>
         </div>
       </header>
+      {/* L'en-tête est fixe : réserve sa hauteur, sauf sur l'accueil où l'intro passe dessous. */}
+      {pathname !== '/' && <div aria-hidden="true" className="h-[68px] md:h-[76px]" />}
 
       <div
         id="menu-mobile"

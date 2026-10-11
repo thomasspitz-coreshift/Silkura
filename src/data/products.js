@@ -56,10 +56,10 @@ export const categories = [
 
 // Ce qui rend l'inox Silkura différent : repris sur l'accueil et le savoir-faire.
 export const inoxFacts = [
-  ['3 couches', "Inox 18/10 à l'intérieur, cœur d'aluminium, inox magnétique à l'extérieur, soudés sur toute la hauteur."],
-  ['0 revêtement', "Ni PTFE, ni PFAS, rien qui s'use ou s'écaille. La surface de cuisson, c'est le métal lui-même."],
-  ['260 °C', 'Au four comme sur le feu, couvercles compris. Tous feux, induction comprise.'],
-  ['À vie', "L'inox ne rouille pas, ne réagit pas aux aliments acides et passe au lave-vaisselle."],
+  { value: '3', unit: 'couches', text: "Inox 18/10 à l'intérieur, cœur d'aluminium, inox magnétique à l'extérieur, soudés sur toute la hauteur." },
+  { value: '0', unit: 'revêtement', text: "Ni PTFE, ni PFAS, rien qui s'use ou s'écaille. La surface de cuisson, c'est le métal lui-même." },
+  { value: '260', unit: '°C', text: 'Au four comme sur le feu, couvercles compris. Tous feux, induction comprise.' },
+  { value: 'À vie', unit: '', text: "L'inox ne rouille pas, ne réagit pas aux aliments acides et passe au lave-vaisselle." },
 ]
 
 const SPECS_BASE = [

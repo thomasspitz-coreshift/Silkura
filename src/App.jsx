@@ -1,8 +1,10 @@
+import { useEffect, useRef } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useReveal } from './lib/useReveal'
 import { useScrollManager } from './lib/useScrollManager'
+import { gsap, prefersReducedMotion, setupMotion } from './lib/motion'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
 import Product from './pages/Product'
@@ -16,6 +18,25 @@ import NotFound from './pages/NotFound'
 /* Toute nouvelle page doit aussi être ajoutée à src/routes.js pour être pré-rendue. */
 export default function App() {
   const { pathname } = useLocation()
+  const curtain = useRef(null)
+  const firstRender = useRef(true)
+
+  // Défilement fluide et animations : une seule fois, dans le navigateur.
+  useEffect(() => {
+    setupMotion()
+    document.documentElement.dataset.motion = prefersReducedMotion() ? 'reduced' : 'full'
+  }, [])
+
+  // Rideau bleu nuit qui se retire à chaque changement de page.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    if (prefersReducedMotion() || !curtain.current) return
+    gsap.fromTo(curtain.current, { scaleY: 1, transformOrigin: 'top' }, { scaleY: 0, duration: 0.95, ease: 'expo.inOut', delay: 0.05 })
+  }, [pathname])
+
   useScrollManager()
   useReveal(pathname)
 
@@ -45,6 +66,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <div ref={curtain} className="page-curtain" aria-hidden="true" />
     </>
   )
 }

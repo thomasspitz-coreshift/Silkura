@@ -222,3 +222,65 @@
 .card-media { transition: transform 1100ms var(--ease-out-soft); }
 .group:hover .card-media { transform: scale(1.035); }
 @media (prefers-reduced-motion: reduce) { .group:hover .card-media { transform: none; } }
+
+/* ═══════════════════════════════════════════════════════════════════
+   IMMERSION (accueil, transitions) — piloté par src/lib/motion.js
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* Mots révélés (RevealText) : chaque mot sort d'un masque */
+.rw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.rw-i { display: inline-block; will-change: transform; }
+
+/* Intro : apparition du logo au chargement (CSS seul, sans attendre JavaScript) */
+@keyframes intro-rise { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+.intro-in { animation: intro-rise 1600ms var(--ease-out-soft) 200ms backwards; }
+.intro-in-2 { animation-delay: 520ms; }
+.intro-in-3 { animation-delay: 760ms; }
+
+/* Intro sur écran vertical : même cadrage que le canvas (largeur pleine, image centrée un peu haut) */
+@media (max-aspect-ratio: 9/10) {
+  .intro-poster { right: auto; bottom: auto; left: -3%; top: 40%; width: 106%; max-width: none; height: auto; transform: translateY(-40%); }
+}
+
+/* Mouvement réduit : intro statique, tous les textes visibles */
+/* (le logo reste seul, au centre, sur le faitout assombri) */
+[data-static] .intro-c { display: none; }
+[data-static] .intro-cue { display: none; }
+
+/* Indicateur de défilement : un trait qui descend en boucle */
+.scroll-cue { position: relative; width: 1px; height: 46px; overflow: hidden; background: rgb(239 235 229 / 0.15); }
+.scroll-cue::after { content: ''; position: absolute; inset: 0; background: var(--color-copper-light); transform: translateY(-100%); animation: scroll-cue 2.2s var(--ease-out-soft) infinite; }
+@keyframes scroll-cue { 0% { transform: translateY(-100%); } 60% { transform: translateY(0); } 100% { transform: translateY(100%); } }
+
+/* Grain de pellicule sur les sections sombres.
+   Pas de « position » ici : le style écraserait sticky/fixed (CSS hors couche > utilitaires Tailwind).
+   L'élément porteur doit être positionné (relative, sticky…). */
+.grain { isolation: isolate; }
+.grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0.07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Rideau de transition entre les pages */
+.page-curtain { position: fixed; inset: 0; z-index: 60; pointer-events: none; background: var(--color-night); transform: scaleY(0); transform-origin: top; }
+
+/* Menu de la collection : panneaux qui s'élargissent au survol */
+.menu-panel { transition: flex-grow 900ms var(--ease-out-soft); }
+.menu-panel img { transition: transform 1400ms var(--ease-out-soft), filter 900ms var(--ease-out-soft); }
+@media (hover: hover) and (min-width: 1024px) {
+  .menu-panels:hover .menu-panel { flex-grow: 0.75; }
+  .menu-panels:hover .menu-panel:hover { flex-grow: 2.4; }
+  .menu-panel:hover img { transform: scale(1.06); }
+  .menu-panels:hover .menu-panel:not(:hover) img { filter: brightness(0.55) saturate(0.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-in, .scroll-cue::after { animation: none; }
+  .menu-panel, .menu-panel img { transition: none; }
+}

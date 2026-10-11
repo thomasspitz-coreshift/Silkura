@@ -9,7 +9,7 @@ import { categories } from '@/data/products'
 
 export default function Footer() {
   return (
-    <footer className="bg-night text-on-night">
+    <footer data-header="dark" className="grain relative bg-night text-on-night">
       <div className="wrap pt-20 pb-10 md:pt-28">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
