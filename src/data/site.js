@@ -12,6 +12,9 @@ export const site = {
   description:
     "Silkura, ustensiles de cuisson en inox 3 plis fabriqués en France : poêles, sauteuses, casseroles et faitouts sans revêtement, compatibles tous feux, garantis à vie.",
   ogImage: '/og-image.jpg',
+  // Pré-lancement : false = moteurs de recherche tenus à l'écart (balise noindex + robots.txt « Disallow »).
+  // Passer à true le jour de la mise en ligne, sinon le site n'apparaîtra jamais dans Google.
+  indexable: false,
   locale: 'fr_FR',
 
   // À CONFIRMER : coordonnées et réseaux.

@@ -28,7 +28,7 @@ export function buildHead({ title, description, image, type = 'website', jsonLd,
     image: absolute(image || site.ogImage),
     type,
     jsonLd,
-    noindex: Boolean(noindex),
+    noindex: Boolean(noindex) || !site.indexable,
   }
 }
 

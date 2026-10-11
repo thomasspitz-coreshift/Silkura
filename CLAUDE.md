@@ -5,7 +5,8 @@
 - **Marque** : Silkura, ustensiles de cuisson **100 % inox 3 plis**, fabriqués en France.
   Aucune pièce en acier carbone, en fonte ou noire : ne jamais en réintroduire dans les textes ou les visuels.
 - **Stack** : Vite 7 + React 19 + React Router 7 + Tailwind 4 (même base que Coreshift).
-- **Hébergement** : Netlify (`netlify.toml`), formulaires via Netlify Forms.
+- **Hébergement** : Netlify, projet `silkura` (équipe thomas-spitz), aperçu sur https://silkura.netlify.app.
+  Formulaires via Netlify Forms (détection activée sur le projet).
 - **Domaine** : `https://www.silkura.fr` (à confirmer, dans `src/data/site.js`).
 
 ## Commandes
@@ -69,6 +70,8 @@ d'après la DA. Ce sont des maquettes : **les remplacer par des photos des vraie
 - Allégations : « Fabriqué en France », « Garantie à vie », « sans PFAS », conditions de livraison et de retour.
 - Pages légales (`src/pages/Legal.jsx`) : raison sociale, SIREN, TVA, médiateur, prestataires. `--strict` les liste.
 - Domaine, adresse e-mail, compte Instagram (`src/data/site.js`).
+- **Ouvrir l'indexation** : `indexable: true` dans `src/data/site.js` (en pré-lancement, toutes les pages sont en
+  `noindex` et `robots.txt` bloque les robots). `--strict` échoue tant que ce n'est pas fait.
 
 ## Sécurité
 

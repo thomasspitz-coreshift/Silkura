@@ -57,7 +57,9 @@ ${routes.map((u) => `  <url><loc>${site.url}${u === '/' ? '/' : u}</loc><lastmod
 </urlset>
 `
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap)
-await fs.writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`)
+// Pré-lancement (site.indexable = false) : tout le site est fermé aux robots d'indexation.
+const robots = site.indexable ? `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n'
+await fs.writeFile(path.join(dist, 'robots.txt'), robots)
 
 await fs.rm(ssrDir, { recursive: true, force: true })
 console.log(`✓ ${routes.length} pages pré-rendues + 404, sitemap.xml, robots.txt`)

@@ -60,6 +60,12 @@ for (const file of pages) {
   if (count) todos.push(`${rel} : ${count} mention(s) « À COMPLÉTER »`)
 }
 
+const robots = await fs.readFile(path.join(dist, 'robots.txt'), 'utf8')
+if (/Disallow: \/\s*$/m.test(robots)) {
+  console.log(`\n${strict ? '✗' : '!'} Site en pré-lancement : non indexable (site.indexable = false dans src/data/site.js).`)
+  if (strict) errors.push('Le site est encore fermé aux moteurs de recherche (site.indexable = false).')
+}
+
 if (todos.length) {
   console.log(`\n${strict ? '✗' : '!'} Textes à compléter avant la mise en ligne :`)
   todos.forEach((t) => console.log('  ' + t))
