@@ -4,6 +4,7 @@ import PageHeader from '@/components/PageHeader'
 import Media from '@/components/Media'
 import { ArrowRight } from '@/components/Icons'
 import { site } from '@/data/site'
+import { Ornament, Tricolore } from '@/components/Logo'
 
 /* ⚠ Textes provisoires : l'histoire, les lieux et les étapes de fabrication sont à réécrire
    avec le fondateur (qui, où, comment, pourquoi). */
@@ -44,11 +45,15 @@ export default function SavoirFaire() {
       <PageHeader
         eyebrow="Savoir-faire"
         title="Des pièces faites pour ne jamais être remplacées."
-        intro="Silkura est née d'une frustration simple : des poêles qui ne tiennent pas trois ans. Nous avons pris le problème à l'envers, en partant de la matière."
-      />
+        intro="Silkura est née d'une frustration simple : des poêles qui ne tiennent pas trois ans. Nous avons pris le problème à l'envers, en partant de la matière, et en fabriquant en France."
+      >
+        <p className="eyebrow flex items-center gap-4 text-muted">
+          <Tricolore /> Fabriqué en France
+        </p>
+      </PageHeader>
 
       <section className="wrap pb-24 md:pb-32">
-        <Media src={site.media.atelier} alt="" shape="sauteuse" tone="stone" ratio="16 / 7" priority sizes="100vw" artClassName="w-[52%] max-w-[640px]" className="rise rise-3 rounded-[2px] max-md:!aspect-[4/3]" />
+        <Media src={site.media.atelier} alt="Mains d'artisan polissant une poêle Silkura en inox à l'atelier" shape="sauteuse" tone="stone" ratio="16 / 7" priority sizes="100vw" artClassName="w-[52%] max-w-[640px]" className="rise rise-3 rounded-[2px] max-md:!aspect-[4/3]" />
       </section>
 
       <section className="wrap pb-24 md:pb-32">
@@ -70,6 +75,30 @@ export default function SavoirFaire() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-paper-2">
+        <div className="wrap grid items-center gap-12 py-24 md:py-32 lg:grid-cols-12">
+          <div className="lg:col-span-7" data-reveal="">
+            <Media
+              src={site.media.detail}
+              alt="Rivets cuivrés d'une poignée Silkura et couvercle gravé au nom de la marque"
+              shape="poele"
+              tone="stone"
+              ratio="16 / 10"
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="rounded-[2px]"
+            />
+          </div>
+          <div className="lg:col-span-4 lg:col-start-9">
+            <Ornament className="text-copper-deep" />
+            <h2 data-reveal="" className="display-lg mt-6">Le détail, partout.</h2>
+            <p data-reveal="80" className="lede mt-6 text-ink-2">
+              Des poignées rivetées en finition cuivre rosé, des couvercles gravés à notre nom, un poli miroir à l'intérieur. Des
+              détails qu'on remarque à peine, et qu'on ne quitte plus.
+            </p>
+          </div>
         </div>
       </section>
 

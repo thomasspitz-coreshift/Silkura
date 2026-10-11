@@ -86,21 +86,21 @@ function ProductView({ slug }) {
 
       <section className="wrap pt-8 pb-24 md:pb-32">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-          {/* Visuels */}
+          {/* Visuels : empilés sur grand écran, photo + vignettes sur mobile */}
           <div className="rise lg:col-span-7">
             <Media
               src={product.images[imageIndex]}
               alt={product.name}
               shape={product.shape}
               tone={product.tone}
-              ratio="1 / 1"
+              ratio="3 / 2"
               priority
               sizes="(min-width: 1024px) 58vw, 100vw"
               artClassName="w-[84%]"
-              className="rounded-[2px]"
+              className="rounded-[2px] lg:hidden"
             />
             {product.images.length > 1 && (
-              <ul className="mt-3 grid grid-cols-5 gap-3">
+              <ul className="mt-3 grid grid-cols-4 gap-3 lg:hidden">
                 {product.images.map((src, i) => (
                   <li key={src}>
                     <button
@@ -110,12 +110,28 @@ function ProductView({ slug }) {
                       aria-pressed={i === imageIndex}
                       className={`block w-full overflow-hidden rounded-[2px] ring-offset-2 ring-offset-paper ${i === imageIndex ? 'ring-1 ring-ink' : ''}`}
                     >
-                      <img src={src} alt="" loading="lazy" className="aspect-square w-full object-cover" />
+                      <img src={src} alt="" loading="lazy" className="aspect-[3/2] w-full object-cover" />
                     </button>
                   </li>
                 ))}
               </ul>
             )}
+            <div className="hidden space-y-4 lg:block">
+              {(product.images.length ? product.images : [null]).map((src, i) => (
+                <Media
+                  key={src ?? 'illustration'}
+                  src={src}
+                  alt={i === 0 ? product.name : `${product.name}, vue ${i + 1}`}
+                  shape={product.shape}
+                  tone={product.tone}
+                  ratio="3 / 2"
+                  priority={i === 0}
+                  sizes="58vw"
+                  artClassName="w-[84%]"
+                  className="rounded-[2px]"
+                />
+              ))}
+            </div>
           </div>
 
           {/* Informations */}

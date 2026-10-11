@@ -1,36 +1,40 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════
-   SILKURA — DIRECTION ARTISTIQUE V0 (provisoire, en attente des photos)
+   SILKURA — DIRECTION ARTISTIQUE (d'après le packaging, oct. 2026)
    Principes :
-     1. Fond papier chaud, encre presque noire. La photo porte la couleur.
-     2. Titres en Instrument Serif, grands et serrés ; texte en Geist.
-     3. Une seule couleur vive : le cuivre, en touches (1 à 2 par écran).
-     4. Sections sombres pour les moments « matière » (savoir-faire).
-     5. Mouvement : apparitions en fondu montant au défilement, rien de permanent.
+     1. Bleu nuit du coffret pour les moments forts (héros, manifeste, pied de page).
+     2. Fond crème marbre, texte bleu encre. Argent / nacre pour le texte sur bleu nuit.
+     3. Titres en EB Garamond (proche du logo), texte en Geist, sur-titres
+        en capitales très espacées, comme « MADE IN FRANCE » sur la boîte.
+     4. Une seule couleur chaude : le cuivre rosé des poignées, en touches.
+     5. Le tricolore n'apparaît qu'en filet, sous « Fabriqué en France ».
    Toutes les couleurs passent par ces jetons : changer la DA = modifier ce bloc.
    ═══════════════════════════════════════════════════════════════════ */
 
 @theme {
-  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-display: 'EB Garamond', Garamond, 'Times New Roman', serif;
   --font-sans: 'Geist Variable', -apple-system, system-ui, sans-serif;
 
-  --color-paper: #F5F1EA;      /* fond de page */
-  --color-paper-2: #EDE6DB;    /* sections, cartes */
-  --color-sand: #E6DCCD;       /* fond d'illustration */
-  --color-stone: #D9D6CF;
-  --color-clay: #E4CFBE;
-  --color-linen: #EFE9E0;
-  --color-ink: #161412;        /* titres, boutons */
-  --color-ink-2: #3B3631;      /* texte courant */
-  --color-muted: #776E64;      /* légendes (AA sur papier) */
-  --color-line: #DCD3C6;       /* filets */
-  --color-copper: #B4653A;     /* accent */
-  --color-copper-deep: #8A4724; /* accent en texte (AA) */
-  --color-night: #141210;      /* sections sombres */
-  --color-night-2: #221E1A;
-  --color-on-night: #F2ECE3;
-  --color-on-night-muted: #A69D92;
+  --color-paper: #F6F2EC;      /* fond de page, crème marbre */
+  --color-paper-2: #EDE7DE;    /* sections, cartes */
+  --color-sand: #E4DACC;       /* fonds de secours des visuels */
+  --color-stone: #D9D6D1;
+  --color-clay: #E2D3C3;
+  --color-linen: #EFE9E1;
+  --color-ink: #141C30;        /* titres, boutons : bleu encre */
+  --color-ink-2: #383E4C;      /* texte courant */
+  --color-muted: #6C6A68;      /* légendes (AA sur crème) */
+  --color-line: #DDD5CA;       /* filets */
+  --color-copper: #B27A4E;     /* cuivre rosé des poignées */
+  --color-copper-deep: #8A5631; /* cuivre en texte sur fond clair (AA) */
+  --color-copper-light: #D9AD86; /* cuivre en texte sur bleu nuit */
+  --color-night: #141D36;      /* bleu nuit du coffret */
+  --color-night-2: #1C2848;
+  --color-on-night: #EFEBE5;   /* nacre */
+  --color-on-night-muted: #A8AFC2;
+  --color-fr-blue: #2B4FA3;
+  --color-fr-red: #D23B3B;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -74,35 +78,34 @@
   .display-xl {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(3rem, 8.4vw, 8.25rem);
-    line-height: 0.94;
-    letter-spacing: -0.025em;
+    font-size: clamp(2.9rem, 7.4vw, 7.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
   }
   .display-lg {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.5rem, 5.6vw, 5rem);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.4rem, 4.9vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
   }
   .display-md {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2rem, 3.6vw, 3.25rem);
-    line-height: 1.04;
-    letter-spacing: -0.015em;
+    font-size: clamp(2rem, 3.2vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
   }
   .display-sm {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(1.5rem, 2.2vw, 2rem);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.5rem, 2vw, 1.9rem);
+    line-height: 1.15;
   }
   .eyebrow {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
+    font-size: 0.71875rem;
+    font-weight: 400;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
   }
   .lede {
@@ -110,7 +113,7 @@
     line-height: 1.6;
   }
   .prose-silkura p { line-height: 1.75; margin-bottom: 1.1em; }
-  .prose-silkura h2 { font-family: var(--font-display); font-size: 2rem; line-height: 1.1; margin: 2.2em 0 0.6em; }
+  .prose-silkura h2 { font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.1; margin: 2.2em 0 0.6em; }
   .prose-silkura h3 { font-weight: 600; font-size: 1.0625rem; margin: 1.8em 0 0.5em; }
   .prose-silkura ul { list-style: disc; padding-left: 1.25em; margin-bottom: 1.1em; }
   .prose-silkura li { line-height: 1.7; margin-bottom: 0.35em; }
@@ -138,7 +141,9 @@
   .btn-ghost { border: 1px solid var(--color-ink); color: var(--color-ink); }
   .btn-ghost:hover { background: var(--color-ink); color: var(--color-paper); }
   .btn-light { background: var(--color-on-night); color: var(--color-night); }
-  .btn-light:hover { background: var(--color-copper); color: var(--color-on-night); }
+  .btn-light:hover { background: var(--color-copper-light); color: var(--color-night); }
+  .btn-ghost-light { border: 1px solid rgb(239 235 229 / 0.5); color: var(--color-on-night); }
+  .btn-ghost-light:hover { background: var(--color-on-night); color: var(--color-night); border-color: var(--color-on-night); }
   .btn[disabled] { opacity: 0.55; pointer-events: none; }
 
   /* Lien souligné animé */
@@ -167,7 +172,16 @@
   .field::placeholder { color: var(--color-muted); }
   .field:focus { outline: none; border-color: var(--color-ink); }
   select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23161412' stroke-width='1.5'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 2px center; padding-right: 1.5rem; }
-  .label { display: block; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--color-muted); }
+  .label { display: block; font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; color: var(--color-muted); }
+
+  /* Filet du logo : trait — point — trait, comme sous « Silkura » sur le coffret */
+  .ornament { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .ornament::before, .ornament::after { content: ''; height: 1px; width: 2.75rem; background: currentColor; opacity: 0.55; }
+  .ornament > span { width: 4px; height: 4px; border-radius: 999px; background: currentColor; }
+
+  /* Filet tricolore sous « Fabriqué en France » */
+  .tricolore { display: inline-flex; height: 2px; width: 2.25rem; }
+  .tricolore > span { flex: 1; }
 
   /* Accordéon natif (details/summary) */
   .accordion summary { list-style: none; cursor: pointer; }

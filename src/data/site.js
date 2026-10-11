@@ -10,7 +10,7 @@ export const site = {
   url: 'https://www.silkura.fr',
   tagline: 'Ustensiles de cuisson en inox',
   description:
-    "Silkura dessine des poêles, sauteuses, casseroles et faitouts en inox 3 plis, sobres et durables. Sans revêtement, compatibles tous feux dont induction.",
+    "Silkura, ustensiles de cuisson en inox 3 plis fabriqués en France : poêles, sauteuses, casseroles et faitouts sans revêtement, compatibles tous feux, garantis à vie.",
   ogImage: '/og-image.jpg',
   locale: 'fr_FR',
 
@@ -19,12 +19,15 @@ export const site = {
   instagram: 'https://www.instagram.com/silkura',
   instagramHandle: '@silkura',
 
-  // Photos d'ambiance : laisser vide tant qu'elles n'existent pas (une illustration prend le relais).
+  // Photos d'ambiance : null = une illustration prend le relais.
   media: {
-    hero: null,          // ex. '/images/hero/accueil.jpg'
-    atelier: null,       // ex. '/images/atelier/mains.jpg'
-    cuisine: null,       // ex. '/images/ambiance/cuisine.jpg'
-    entretien: null,     // ex. '/images/ambiance/goutte.jpg'
+    hero: '/images/marque/collection-complete.webp',
+    packaging: '/images/marque/packaging.webp',
+    // Visuels générés par IA (ElevenLabs) d'après la DA du packaging, en attendant un shooting.
+    atelier: '/images/atelier/polissage.webp',
+    detail: '/images/atelier/detail.webp',
+    cuisine: '/images/ambiance/cuisine.webp',
+    entretien: '/images/ambiance/goutte.webp',
   },
 }
 
@@ -38,9 +41,10 @@ export const commerce = {
 
 // Promesses affichées en bandeau. À CONFIRMER une par une : ce sont des engagements commerciaux.
 export const promises = [
+  'Fabriqué en France',
   'Compatibles tous feux, induction comprise',
   'Sans revêtement antiadhésif, sans PFAS',
-  'Inox 3 plis, garanti à vie',
+  'Garantie à vie',
   `Livraison offerte dès ${commerce.freeShippingFrom}\u00A0€`,
   `Retours sous ${commerce.returnDays} jours`,
 ]

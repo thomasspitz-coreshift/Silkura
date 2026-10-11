@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { Mark } from './Logo'
+import { Ornament, Tricolore } from './Logo'
 import Newsletter from './Newsletter'
 import { Instagram, Mail } from './Icons'
 import { legalNav, site } from '@/data/site'
@@ -51,9 +51,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div aria-hidden="true" className="mt-24 flex items-end gap-4 overflow-hidden md:mt-32">
-          <Mark className="mb-[1.2vw] h-[11vw] w-[14.5vw] shrink-0 text-on-night" />
-          <span className="font-display text-[22vw] leading-[0.72] tracking-[-0.03em] text-on-night">Silkura</span>
+        <div aria-hidden="true" className="mt-24 flex flex-col items-center text-center md:mt-32">
+          <span className="font-display text-[24vw] leading-[0.8] font-normal tracking-[-0.01em] text-on-night md:text-[17vw]">Silkura</span>
+          <Ornament className="mt-6 text-on-night-muted" />
+          <span className="mt-4 text-[0.6875rem] tracking-[0.34em] text-on-night-muted uppercase">Made in France</span>
+          <Tricolore className="mt-3" />
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-on-night/15 pt-6 text-[0.8125rem] text-on-night-muted md:flex-row md:items-center md:justify-between">
@@ -76,7 +78,7 @@ export default function Footer() {
 function FooterColumn({ title, children }) {
   return (
     <div>
-      <p className="eyebrow mb-5 text-on-night/50">{title}</p>
+      <p className="eyebrow mb-5 text-copper-light">{title}</p>
       <ul className="space-y-3 text-[0.9375rem]">{children}</ul>
     </div>
   )

@@ -10,7 +10,7 @@ const FINISH = {
   body: [['0', '#7F8488'], ['0.22', '#C9CDD0'], ['0.4', '#F1F2F2'], ['0.62', '#A3A8AC'], ['1', '#6E7377']],
   inside: ['#A9AEB1', '#DADDDF'],
   lip: 'rgba(255,255,255,0.9)',
-  handle: [['0', '#C5C9CC'], ['0.5', '#EEF0F1'], ['1', '#8D9296']],
+  handle: [['0', '#D9A77E'], ['0.5', '#B97B4D'], ['1', '#7E4A28']], // cuivre rosé
 }
 
 const SHAPES = {

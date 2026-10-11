@@ -9,7 +9,9 @@
      category    identifiant d'une catégorie ci-dessous
      shape       silhouette de l'illustration de secours (si aucune photo)
      tone        fond derrière la photo ou l'illustration : 'sand' | 'stone' | 'clay' | 'linen'
-     images      photos (la première est la photo principale), ex. ['/images/produits/poele.webp']
+     images      photos (la première est la photo principale), ex. ['/images/produits/poele-1.webp'] ;
+                 format 3:2 conseillé. Visuels actuels générés par IA d'après le packaging :
+                 à remplacer par les vraies photos produit avant la vente.
      sizes       déclinaisons ; price en euros TTC ; buyUrl = lien de paiement (Stripe, Shopify…)
                  si buyUrl est vide, le bouton mène au formulaire de contact pré-rempli.
    ============================================================ */
@@ -63,6 +65,8 @@ export const inoxFacts = [
 const SPECS_BASE = [
   ['Matière', 'Inox 18/10 · aluminium · inox ferritique'],
   ['Construction', '3 plis sur toute la hauteur'],
+  ['Poignées', 'Rivetées, finition cuivre rosé'],
+  ['Fabrication', 'France'],
   ['Feux', 'Tous feux, induction comprise'],
   ['Four', "Jusqu'à 260 °C"],
   ['Lave-vaisselle', 'Oui'],
@@ -82,7 +86,7 @@ export const products = [
     features: [
       'Inox 3 plis, cœur aluminium sur toute la hauteur',
       'Bords évasés et verseurs, sans goutte',
-      'Queue rivetée creuse, qui reste froide plus longtemps',
+      'Queue rivetée, finition cuivre rosé',
       'Passe au four et au lave-vaisselle',
     ],
     sizes: [
@@ -92,7 +96,7 @@ export const products = [
       { label: '32 cm', price: 115, buyUrl: '' },
     ],
     specs: [...SPECS_BASE, ['Épaisseur', '2,6 mm'], ['Poids (28 cm)', '1,4 kg']],
-    images: [],
+    images: ['/images/produits/poele-1.webp', '/images/produits/poele-2.webp', '/images/atelier/detail.webp'],
   },
   {
     slug: 'sauteuse-inox',
@@ -105,8 +109,8 @@ export const products = [
       "Des bords droits de 7 cm pour remuer sans déborder, une poignée d'appoint pour la porter pleine, un couvercle ajusté pour finir les cuissons à l'étouffée. La pièce à tout faire.",
     features: [
       'Bords droits de 7 cm',
-      "Poignée d'appoint rivetée",
-      'Couvercle inox ajusté, fourni',
+      'Queue et poignée d\'appoint rivetées, finition cuivre rosé',
+      'Couvercle inox gravé Silkura, fourni',
       'Passe au four et au lave-vaisselle',
     ],
     sizes: [
@@ -114,7 +118,7 @@ export const products = [
       { label: '28 cm · 4,2 L', price: 139, buyUrl: '' },
     ],
     specs: [...SPECS_BASE, ['Couvercle', 'Inox, fourni']],
-    images: [],
+    images: ['/images/produits/sauteuse-1.webp', '/images/produits/sauteuse-2.webp'],
   },
   {
     slug: 'wok-inox',
@@ -128,12 +132,12 @@ export const products = [
     features: [
       "Fond plat de 14 cm, stable sur l'induction",
       'Parois évasées, faciles à remuer',
-      "Poignée d'appoint rivetée",
+      'Queue et poignée d\'appoint rivetées, finition cuivre rosé',
       'Passe au four et au lave-vaisselle',
     ],
     sizes: [{ label: '30 cm · 4,5 L', price: 129, buyUrl: '' }],
     specs: [...SPECS_BASE, ['Poids', '1,6 kg']],
-    images: [],
+    images: ['/images/produits/wok-1.webp', '/images/produits/wok-2.webp'],
   },
   {
     slug: 'casserole-inox',
@@ -147,8 +151,8 @@ export const products = [
       "Graduée à l'intérieur, dotée de bords verseurs et d'un couvercle ajusté. La chaleur monte le long des parois : les sauces réduisent sans attacher au fond.",
     features: [
       "Graduations gravées à l'intérieur",
-      'Couvercle inox ajusté, fourni',
-      'Bords verseurs des deux côtés',
+      'Couvercle inox gravé Silkura, fourni',
+      'Queue rivetée, finition cuivre rosé',
       'Passe au four et au lave-vaisselle',
     ],
     sizes: [
@@ -157,7 +161,7 @@ export const products = [
       { label: '20 cm · 3 L', price: 99, buyUrl: '' },
     ],
     specs: [...SPECS_BASE, ['Couvercle', 'Inox, fourni']],
-    images: [],
+    images: ['/images/produits/casserole-1.webp', '/images/produits/casserole-2.webp'],
   },
   {
     slug: 'faitout-inox',
@@ -169,9 +173,9 @@ export const products = [
     description:
       "Pour les bouillons du dimanche, les pâtes pour dix ou les confitures de saison. Deux poignées larges, pensées pour être saisies avec des maniques, et un couvercle qui garde la vapeur.",
     features: [
-      'Deux poignées larges rivetées',
+      'Deux poignées larges rivetées, finition cuivre rosé',
       "Graduations gravées à l'intérieur",
-      'Couvercle inox, fourni',
+      'Couvercle inox gravé Silkura, fourni',
       'Passe au four et au lave-vaisselle',
     ],
     sizes: [
@@ -179,7 +183,7 @@ export const products = [
       { label: '28 cm · 9 L', price: 175, buyUrl: '' },
     ],
     specs: [...SPECS_BASE, ['Couvercle', 'Inox, fourni']],
-    images: [],
+    images: ['/images/produits/faitout-1.webp', '/images/produits/faitout-2.webp'],
   },
   {
     slug: 'coffret-essentiel',
@@ -195,11 +199,11 @@ export const products = [
       'La Poêle 28 cm',
       'La Sauteuse 24 cm avec couvercle',
       'La Casserole 18 cm avec couvercle',
-      'Coffret en carton recyclé, prêt à offrir',
+      'Coffret bleu nuit en carton recyclé, prêt à offrir',
     ],
     sizes: [{ label: '3 pièces', price: 279, buyUrl: '' }],
     specs: [...SPECS_BASE, ['Contenu', 'Poêle 28 cm, sauteuse 24 cm, casserole 18 cm']],
-    images: [],
+    images: ['/images/marque/coffret-trio.webp'],
   },
 ]
 

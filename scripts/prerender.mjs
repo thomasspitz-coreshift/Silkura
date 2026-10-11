@@ -22,7 +22,7 @@ const { render, getRoutes, site } = await import(pathToFileURL(path.join(ssrDir,
 // Préchargement des deux polices visibles dès le premier écran (titres et texte, alphabet latin) :
 // évite le saut de typographie au chargement.
 const assets = await fs.readdir(path.join(dist, 'assets'))
-const preloadFonts = [/^instrument-serif-latin-400-normal-.*\.woff2$/, /^geist-latin-wght-normal-.*\.woff2$/]
+const preloadFonts = [/^eb-garamond-latin-400-normal-.*\.woff2$/, /^geist-latin-wght-normal-.*\.woff2$/]
   .map((pattern) => assets.find((f) => pattern.test(f)))
   .filter(Boolean)
   .map((f) => `<link rel="preload" href="/assets/${f}" as="font" type="font/woff2" crossorigin />`)
