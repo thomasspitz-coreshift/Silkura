@@ -1,0 +1,32 @@
+# Site vitrine pré-rendu : chaque page existe en HTML statique dans dist/ (scripts/prerender.mjs).
+# Pas de redirection « /* → /index.html » : une adresse inconnue doit répondre 404 (dist/404.html),
+# pas une page d'accueil en 200 (mauvais pour le référencement).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# En-têtes de sécurité. La CSP n'autorise que le site lui-même : polices auto-hébergées,
+# aucun script tiers. Tout nouveau service (paiement, statistiques, carte, vidéo) doit être ajouté ici.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+
+# Fichiers à empreinte (nouveau nom à chaque build) : cache long.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════
+   SILKURA — DIRECTION ARTISTIQUE V0 (provisoire, en attente des photos)
+   Principes :
+     1. Fond papier chaud, encre presque noire. La photo porte la couleur.
+     2. Titres en Instrument Serif, grands et serrés ; texte en Geist.
+     3. Une seule couleur vive : le cuivre, en touches (1 à 2 par écran).
+     4. Sections sombres pour les moments « matière » (savoir-faire).
+     5. Mouvement : apparitions en fondu montant au défilement, rien de permanent.
+   Toutes les couleurs passent par ces jetons : changer la DA = modifier ce bloc.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@theme {
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Geist Variable', -apple-system, system-ui, sans-serif;
+
+  --color-paper: #F5F1EA;      /* fond de page */
+  --color-paper-2: #EDE6DB;    /* sections, cartes */
+  --color-sand: #E6DCCD;       /* fond d'illustration */
+  --color-stone: #D9D6CF;
+  --color-clay: #E4CFBE;
+  --color-linen: #EFE9E0;
+  --color-ink: #161412;        /* titres, boutons */
+  --color-ink-2: #3B3631;      /* texte courant */
+  --color-muted: #776E64;      /* légendes (AA sur papier) */
+  --color-line: #DCD3C6;       /* filets */
+  --color-copper: #B4653A;     /* accent */
+  --color-copper-deep: #8A4724; /* accent en texte (AA) */
+  --color-night: #141210;      /* sections sombres */
+  --color-night-2: #221E1A;
+  --color-on-night: #F2ECE3;
+  --color-on-night-muted: #A69D92;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink-2);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 { color: var(--color-ink); text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-copper); color: var(--color-paper); }
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img { max-width: 100%; height: auto; }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 48px);
+  }
+
+  /* Titres */
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3rem, 8.4vw, 8.25rem);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+  }
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5.6vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.6vw, 3.25rem);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
+  .display-sm {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .lede {
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+  }
+  .prose-silkura p { line-height: 1.75; margin-bottom: 1.1em; }
+  .prose-silkura h2 { font-family: var(--font-display); font-size: 2rem; line-height: 1.1; margin: 2.2em 0 0.6em; }
+  .prose-silkura h3 { font-weight: 600; font-size: 1.0625rem; margin: 1.8em 0 0.5em; }
+  .prose-silkura ul { list-style: disc; padding-left: 1.25em; margin-bottom: 1.1em; }
+  .prose-silkura li { line-height: 1.7; margin-bottom: 0.35em; }
+  .prose-silkura a { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Boutons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: background-color 220ms var(--ease-out-soft), color 220ms var(--ease-out-soft),
+      border-color 220ms var(--ease-out-soft), transform 220ms var(--ease-out-soft);
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--color-ink); color: var(--color-paper); }
+  .btn-primary:hover { background: var(--color-copper-deep); }
+  .btn-ghost { border: 1px solid var(--color-ink); color: var(--color-ink); }
+  .btn-ghost:hover { background: var(--color-ink); color: var(--color-paper); }
+  .btn-light { background: var(--color-on-night); color: var(--color-night); }
+  .btn-light:hover { background: var(--color-copper); color: var(--color-on-night); }
+  .btn[disabled] { opacity: 0.55; pointer-events: none; }
+
+  /* Lien souligné animé */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 2px;
+    transition: background-size 320ms var(--ease-out-soft);
+  }
+  .link-underline:hover { background-size: 0% 1px; background-position: 100% 100%; }
+
+  /* Champs */
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.85rem 0;
+    font-size: 1rem;
+    color: var(--color-ink);
+    border-radius: 0;
+    transition: border-color 200ms;
+  }
+  .field::placeholder { color: var(--color-muted); }
+  .field:focus { outline: none; border-color: var(--color-ink); }
+  select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23161412' stroke-width='1.5'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 2px center; padding-right: 1.5rem; }
+  .label { display: block; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--color-muted); }
+
+  /* Accordéon natif (details/summary) */
+  .accordion summary { list-style: none; cursor: pointer; }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion .chev { transition: transform 260ms var(--ease-out-soft); }
+  .accordion[open] .chev { transform: rotate(45deg); }
+
+  /* Bandeau défilant */
+  .marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { display: flex; flex-shrink: 0; gap: 3.5rem; padding-right: 3.5rem; animation: marquee 38s linear infinite; }
+  @keyframes marquee { to { transform: translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+}
+
+/* Apparitions au défilement (src/lib/useReveal.js).
+   Sans JavaScript, ou pour un élément déjà visible au chargement, rien n'est masqué. */
+[data-reveal-state='pending'] { opacity: 0; transform: translateY(22px); }
+[data-reveal-state='in'] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 900ms var(--ease-out-soft), transform 900ms var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Entrée de page (hero) */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 1000ms var(--ease-out-soft) backwards; }
+.rise-1 { animation-delay: 80ms; }
+.rise-2 { animation-delay: 180ms; }
+.rise-3 { animation-delay: 300ms; }
+.rise-4 { animation-delay: 440ms; }
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+  [data-reveal-state] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* Image produit : léger zoom au survol de la carte */
+.card-media { transition: transform 1100ms var(--ease-out-soft); }
+.group:hover .card-media { transform: scale(1.035); }
+@media (prefers-reduced-motion: reduce) { .group:hover .card-media { transform: none; } }
